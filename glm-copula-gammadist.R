@@ -1,3 +1,11 @@
+library(sp)
+library(CASdatasets)
+library(ChainLadder)
+library(stats)
+library(fitdistrplus)
+library(MASS)
+library(copula)
+
 rm(list=ls())
 data(ustri2GL)
 
