@@ -100,30 +100,25 @@ fit1copula <- fitCopula(normalCopula(dim=3, dispstr = "un"), data = dataabc, met
 fit2copula <- fitCopula(claytonCopula(dim=3), data = dataabc, method = "ml")
 fit3copula <- fitCopula(gumbelCopula(dim=3), data = dataabc, method = "ml")
 fit4copula <- fitCopula(frankCopula(dim=3), data = dataabc, method = "ml")
-fit5copula <- fitCopula(joeCopula(dim=3), data = dataabc, method = "ml")
 
 #aic bic copula terbaik#########################################################
 aic_fit1 <- -2 * fit1copula@loglik + 2 * length(fit1copula@estimate)
 aic_fit2 <- -2 * fit2copula@loglik + 2 * length(fit2copula@estimate)
 aic_fit3 <- -2 * fit3copula@loglik + 2 * length(fit3copula@estimate)
 aic_fit4 <- -2 * fit4copula@loglik + 2 * length(fit4copula@estimate)
-aic_fit5 <- -2 * fit5copula@loglik + 2 * length(fit5copula@estimate)
 aic_fit1
 aic_fit2
 aic_fit3
 aic_fit4
-aic_fit5
 
 bic_fit1 <- -2 * fit1copula@loglik + length(fit1copula@estimate) * log(length(dataabc))
 bic_fit2 <- -2 * fit2copula@loglik + length(fit2copula@estimate) * log(length(dataabc))
 bic_fit3 <- -2 * fit3copula@loglik + length(fit3copula@estimate) * log(length(dataabc))
 bic_fit4 <- -2 * fit4copula@loglik + length(fit4copula@estimate) * log(length(dataabc))
-bic_fit5 <- -2 * fit5copula@loglik + length(fit5copula@estimate) * log(length(dataabc))
 bic_fit1
 bic_fit2
 bic_fit3
 bic_fit4
-bic_fit5
 
 #simulasi 1000 kali#############################################################
 
