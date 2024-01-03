@@ -1,3 +1,11 @@
+library(sp)
+library(CASdatasets)
+library(ChainLadder)
+library(stats)
+library(fitdistrplus)
+library(MASS)
+library(copula)
+
 rm(list=ls())
 data(ustri2GL)
 
@@ -308,5 +316,3 @@ for (i in 1:1000) {
 IBNR_3 <- as.data.frame(matrix(unlist(IBNR_3), ncol = 1000))
 sd_3 <- apply(IBNR_3,1,sd)
 mean_3 <- rowMeans(IBNR_3)
-
-
