@@ -5,6 +5,7 @@ library(stats)
 library(fitdistrplus)
 library(MASS)
 library(copula)
+library(scatterplot3d)
 
 rm(list=ls())
 data(ustri2GL)
@@ -39,7 +40,7 @@ summary(fit2incr)
 summary(fit2incr, type = "model") 
 tri2 <- as.data.frame(fit2incr[["FullTriangle"]])
 
-fit3incr <- glmReserve(data3incr, var.power = 2, cum = FALSE)
+fit3incr <- glmReserve(data3incr, var.power = 2, cum = FALSE, mse.method = "bootstrap")
 summary(fit3incr)
 summary(fit3incr, type = "model") 
 tri3 <- as.data.frame(fit3incr[["FullTriangle"]])
@@ -101,7 +102,7 @@ fit2copula <- fitCopula(claytonCopula(dim=3), data = dataabc, method = "ml")
 fit3copula <- fitCopula(gumbelCopula(dim=3), data = dataabc, method = "ml")
 fit4copula <- fitCopula(frankCopula(dim=3), data = dataabc, method = "ml")
 
-#aic bic copula terbaik#########################################################
+#aic bic########################################################################
 aic_fit1 <- -2 * fit1copula@loglik + 2 * length(fit1copula@estimate)
 aic_fit2 <- -2 * fit2copula@loglik + 2 * length(fit2copula@estimate)
 aic_fit3 <- -2 * fit3copula@loglik + 2 * length(fit3copula@estimate)
@@ -228,7 +229,8 @@ hasil3 <- as.data.frame(c(ultimateclaims3, paidtodate3, IBNR3))
 colnames(hasil3) <- c("ultimateclaims3", "paidtodate3", "IBNR3")
 hasil3
 
-#standar deviasi################################################################
+#coefficient of variation##################################################
+#lob1####################
 tri1_final_1 <- list()
 ultimateclaims_1 <- list()
 IBNR_1 <- list()
@@ -261,8 +263,9 @@ IBNR_1
 IBNR_1 <- as.data.frame(matrix(unlist(IBNR_1), ncol = 1000))
 sd_1 <- apply(IBNR_1,1,sd)
 mean_1 <- rowMeans(IBNR_1)
+CV_1 <- sd_1/mean_1
 
-#standar deviasi tri2
+#lob2####################
 tri2_final_2 <- list()
 ultimateclaims_2 <- list()
 IBNR_2 <- list()
@@ -294,8 +297,9 @@ for (i in 1:1000) {
 IBNR_2 <- as.data.frame(matrix(unlist(IBNR_2), ncol = 1000))
 sd_2 <- apply(IBNR_2,1,sd)
 mean_2 <- rowMeans(IBNR_2)
+CV_2 <- sd_2/mean_2
 
-#standar deviasi tri3
+#lob3####################
 tri3_final_3 <- list()
 ultimateclaims_3 <- list()
 IBNR_3 <- list()
@@ -327,4 +331,10 @@ for (i in 1:1000) {
 IBNR_3 <- as.data.frame(matrix(unlist(IBNR_3), ncol = 1000))
 sd_3 <- apply(IBNR_3,1,sd)
 mean_3 <- rowMeans(IBNR_3)
+CV_3 <- sd_3/mean_3
 
+#plot 3d #######################################################################
+u1 <- rCopula(55, fit1copula@copula)
+u <- dataabc
+s3d <- scatterplot3d(u, color = "red")
+s3d$points3d(u1)
